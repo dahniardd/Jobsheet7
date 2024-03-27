@@ -1,4 +1,4 @@
-package minggu7;
+package Tugas;
 
 public class Mahasiswa06 {
     int nim;
@@ -18,6 +18,5 @@ public class Mahasiswa06 {
            System.out.println("Nama = " + nama);
            System.out.println("Umur = " + umur); 
            System.out.println("IPK = " + ipk);
-        }   
-    }
-
+    }   
+}

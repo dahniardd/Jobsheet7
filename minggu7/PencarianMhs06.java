@@ -1,49 +1,78 @@
-package minggu7;
+package Tugas;
+
 public class PencarianMhs06 {
-    Mahasiswa06 listMhs[] = new Mahasiswa06[5];
+    Mahasiswa06 listMhs[];
     int idx;
 
     void tambah(Mahasiswa06 m){
-        if(idx < listMhs.length) {
+        if (idx<listMhs.length) {
             listMhs[idx] = m;
-            idx ++;
-        } else {
-            System.out.println("Data sudah penuh!!");
+            idx++;
+        }else{
+            System.out.println("Data Sudah Penuh!!");
         }
     }
-    void tampil() {
-        for(Mahasiswa06 m : listMhs){
+    void tampil(){
+        for (Mahasiswa06 m : listMhs) {
             m.tampil();
-            System.out.println("-------------------");
+            System.out.println("------------------------------");
         }
     }
-    public int FindSeqSearch(int cari){
-        int posisi = -1;
-        for (int j = 0; j < listMhs.length; j++) {
-            if (listMhs[j].nim==cari) {
-                posisi =j;
-                break;
+    public int findBinarySearch(String cari, int i, int j) {
+        int left = 0;
+        int right = listMhs.length - 1;
+        int count = 0; // Variabel untuk menghitung jumlah hasil yang ditemukan
+    
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int cmp = listMhs[mid].nama.compareTo(cari);
+    
+            // Jika nama ditemukan di tengah
+            if (cmp == 0) {
+                // Cek apakah ada entri sebelum atau sesudah yang memiliki nama yang sama
+                int temp = mid;
+                while (temp >= left && listMhs[temp].nama.equals(cari)) {
+                    count++;
+                    temp--;
+                }
+                temp = mid + 1;
+                while (temp <= right && listMhs[temp].nama.equals(cari)) {
+                    count++;
+                    temp++;
+                }
+                return count > 1 ? -2 : mid; // Jika lebih dari satu hasil, kembalikan -2
+            }
+            // Jika nama yang dicari lebih kecil, cari di sebelah kiri
+            else if (cmp > 0) {
+                right = mid - 1;
+            }
+            // Jika nama yang dicari lebih besar, cari di sebelah kanan
+            else {
+                left = mid + 1;
             }
         }
-        return posisi;
+    
+        // Jika nama tidak ditemukan
+        return -1;
     }
-    public void Tampilposisi(int x, int pos)
-    {
-        if (pos!= -1){
-          System.out.println("data : " + x + "ditemukan pada indeks " + pos);  
+
+    public void tampilPosisi(String nama, int pos) {
+        if (pos != -1) {
+            System.out.println("Data: " + nama + " ditemukan pada indeks " + pos);
         } else {
-           System.out.println("data " + x + "tidak ditemukan"); 
+            System.out.println("Data " + nama + " tidak ditemukan");
         }
     }
-    public void TampilData(int x, int pos)
-    {
-        if (pos!= -1){
-            System.out.println("Nim\t : " + x);
-            System.out.println("Nama\t : " +listMhs[pos].nama);
-            System.out.println("Umur\t : " +listMhs[pos].umur);
-            System.out.println("IPK\t : " +listMhs[pos].ipk);
+
+    public void tampilData(String nama, int pos) {
+        if (pos != -1) {
+            System.out.println("Nama\t : " + nama);
+            System.out.println("NIM\t : " + listMhs[pos].nim);
+            System.out.println("Umur\t : " + listMhs[pos].umur);
+            System.out.println("IPK\t : " + listMhs[pos].ipk);
         } else {
-           System.out.println("Data " + x + "tidak ditemukan"); 
+            System.out.println("Data " + nama + " tidak ditemukan");
         }
     }
+
 }
